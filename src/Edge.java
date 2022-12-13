@@ -1,12 +1,15 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class Edge {
 
-    private Node reference;
+    private ArrayList<Node> references = new ArrayList<>();
 
-    public Node getReference() {
-        return reference;
+    public ArrayList<Node> getReferences() {
+        return references;
     }
 
-    public void setReference(Node reference) {
-        this.reference = reference;
+    public void addReference(Node node){
+        references.add(node);
     }
 }
