@@ -29,4 +29,11 @@ public class Node {
     public void addEdge(Edge edge){
         edges.add(edge);
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "value=" + value +
+                '}';
+    }
 }

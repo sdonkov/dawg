@@ -3,13 +3,20 @@ import java.util.HashSet;
 
 public class Edge {
 
-    private ArrayList<Node> references = new ArrayList<>();
+    private Node reference;
 
-    public ArrayList<Node> getReferences() {
-        return references;
+    public Node getReferences() {
+        return reference;
     }
 
-    public void addReference(Node node){
-        references.add(node);
+    public void setReference(Node reference) {
+        this.reference = reference;
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "reference=" + reference +
+                '}';
     }
 }
