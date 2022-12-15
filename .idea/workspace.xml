@@ -4,8 +4,8 @@
     <list default="true" id="d27b57ec-d7d9-401b-a677-f0020eda4746" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PrefixTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PrefixTree.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +24,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2IrbqvRCrl5TMAjGbl5sUwkhrJf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -72,7 +75,7 @@
       <workItem from="1670943807657" duration="19000" />
       <workItem from="1670944457892" duration="2926000" />
       <workItem from="1671007043627" duration="15475000" />
-      <workItem from="1671089766666" duration="3847000" />
+      <workItem from="1671089766666" duration="17893000" />
     </task>
     <servers />
   </component>
@@ -89,13 +92,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Demo.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Demo.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="13" />
+          <line>28</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Test.java</url>
@@ -108,21 +106,30 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/PrefixTree.java</url>
-          <line>14</line>
+          <line>20</line>
           <properties class="PrefixTree" method="contains">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="10" />
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Demo.java</url>
-          <line>81</line>
-          <properties class="Demo" method="completeTheWord">
+          <url>file://$PROJECT_DIR$/src/PrefixTree.java</url>
+          <line>31</line>
+          <properties class="PrefixTree" method="add">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="14" />
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/PrefixTree.java</url>
+          <line>55</line>
+          <properties class="PrefixTree" method="traverse">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="29" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -130,6 +137,8 @@
       <configuration name="Application">
         <watch expression="prefixTree.root.edges.get(1).reference.edges.get(0).reference.edges.get(0).reference.edges.get(0).reference.edges.get(0).reference" />
         <watch expression="prefixTree.root.edges.get(0).reference.edges.get(0).reference.edges.get(0)" />
+        <watch expression="this" />
+        <watch expression="((PrefixTree)this).root.edges.get(1)" custom="PrefixTree" />
       </configuration>
     </watches-manager>
   </component>

@@ -32,8 +32,9 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
-                "value=" + value +
-                '}';
+        return "Node - " +
+                "(" +
+                edges.size() + value + (isFinal ? "." : "")+
+                ')';
     }
 }
