@@ -6,6 +6,9 @@ public class Node {
     private char value;
     private ArrayList<Edge> edges = new ArrayList<>();
 
+    Node(char value){
+        this.value = value;
+    }
     public boolean isFinal() {
         return isFinal;
     }
@@ -16,10 +19,6 @@ public class Node {
 
     public char getValue() {
         return value;
-    }
-
-    public void setValue(char value) {
-        this.value = value;
     }
 
     public ArrayList<Edge> getEdges() {

@@ -4,9 +4,9 @@ public class Demo {
 
     public static void main(String[] args) {
 
-        PrefixTree prefixTree = new PrefixTree();
-        Node root = new Node();
-        prefixTree.setRoot(root);
+
+        Node root = new Node('\u0000');
+        PrefixTree prefixTree = new PrefixTree(root);
         prefixTree.add("axa");
         prefixTree.add("abe");
         prefixTree.add("tab");
@@ -16,11 +16,11 @@ public class Demo {
         prefixTree.add("ayasx");
 
         System.out.println(root.getEdges().size());
-        System.out.println(root.getEdges().get(0).getReferences());
-        System.out.println(root.getEdges().get(0).getReferences().getEdges().get(0)
-                .getReferences().getEdges().get(0).getReferences());
+        System.out.println(root.getEdges().get(0).getNode());
+        System.out.println(root.getEdges().get(0).getNode().getEdges().get(0)
+                .getNode().getEdges().get(0).getNode());
         ArrayList<Edge> edges = root.getEdges();
-        System.out.println(edges.get(0).getReferences().getEdges().size());
+        System.out.println(edges.get(0).getNode().getEdges().size());
         System.out.println(prefixTree.contains("tabl")); // false
         System.out.println(prefixTree.contains("table")); // true
         System.out.println(prefixTree.contains("a")); // true

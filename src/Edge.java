@@ -1,16 +1,13 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-
 public class Edge {
 
     private Node reference;
 
-    public Node getReferences() {
-        return reference;
+    Edge(Node reference){
+        this.reference = reference;
     }
 
-    public void setReference(Node reference) {
-        this.reference = reference;
+    public Node getNode() {
+        return reference;
     }
 
     @Override

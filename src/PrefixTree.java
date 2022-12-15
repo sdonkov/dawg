@@ -2,24 +2,20 @@ import java.util.ArrayList;
 
 public class PrefixTree {
 
-    private Node root;
+    private final Node root;
 
-    public void setRoot(Node root) {
+    PrefixTree(Node root){
         this.root = root;
     }
 
-    public Node getRoot() {
-        return this.root;
-    }
-
-    private static class Helper{
+    private static class TraverseResult {
         private Node node;
         private int index;
 
     }
 
     public boolean contains(CharSequence word){
-        Helper helper = traverse(word);
+        TraverseResult helper = traverse(word);
         if(helper.index == -1){
             System.out.println("Tree contains this word - " + word);
             return true;
@@ -30,55 +26,48 @@ public class PrefixTree {
     }
 
     public boolean add(CharSequence word){
-        Helper helper = traverse(word);
-        Node previousNode = helper.node;
+        TraverseResult helper = traverse(word);
+        Node currentNode = helper.node;
         if(helper.index == -1){
             System.out.println("Word has been added already. " + word);
             return false;
         }
-        else{
-            for (int i = helper.index; i < word.length(); i++) {
-                if(word.length() == 1){
-                    break;
-                }
-                Edge edge = new Edge();
-                Node node = new Node();
-                node.setValue(word.charAt(i));
-                edge.setReference(node);
-                previousNode.addEdge(edge);
-                previousNode = node;
-            }
-            previousNode.setFinal(true);
+        if(word.length() == 1){
+            currentNode.setFinal(true);
             return true;
         }
+        for (int i = helper.index; i < word.length(); i++) {
+            Node nextNode = new Node(word.charAt(i));
+            Edge edge = new Edge(nextNode);
+            currentNode.addEdge(edge);
+            currentNode = nextNode;
+            }
+            currentNode.setFinal(true);
+            return true;
     }
 
-    private Helper traverse(CharSequence word){
-        Helper helper = new Helper();
-        Node previousNode = root;
-        for (int i = 0; i < word.length(); i++) {
+    private TraverseResult traverse(CharSequence word){
+        TraverseResult traverseResult = new TraverseResult();
+        traverseResult.node = root;
+        for (traverseResult.index = 0; traverseResult.index < word.length(); traverseResult.index++) {
             boolean hasEdge = false;
-            ArrayList<Edge> nodeEdges = previousNode.getEdges();
+            ArrayList<Edge> nodeEdges = traverseResult.node.getEdges();
             for (Edge nodeEdge : nodeEdges) {
-                if(nodeEdge.getReferences().getValue() == word.charAt(i)){
-                    previousNode = nodeEdge.getReferences();
+                if(nodeEdge.getNode().getValue() == word.charAt(traverseResult.index)){
+                    traverseResult.node = nodeEdge.getNode();
                     hasEdge = true;
                     break;
                 }
             }
             if(!hasEdge){
-                helper.index = i;
-                helper.node = previousNode;
-                return helper;
+                return traverseResult;
             }
         }
-        if(!previousNode.isFinal()){
-            helper.index = word.length() - 1;
-            helper.node = previousNode;
-            return helper;
+        if(!traverseResult.node.isFinal()){
+            traverseResult.index = word.length() - 1;
+            return traverseResult;
         }
-        helper.index = -1;
-        helper.node = previousNode;
-        return helper;
+        traverseResult.index = -1;
+        return traverseResult;
     }
 }
