@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrefixTree {
 
@@ -50,16 +51,19 @@ public class PrefixTree {
         TraverseResult traverseResult = new TraverseResult();
         traverseResult.node = root;
         for (traverseResult.index = 0; traverseResult.index < word.length(); traverseResult.index++) {
-            boolean hasEdge = false;
+            AtomicBoolean hasEdge = new AtomicBoolean(false);
             ArrayList<Edge> nodeEdges = traverseResult.node.getEdges();
-            for (Edge nodeEdge : nodeEdges) {
-                if(nodeEdge.getNode().getValue() == word.charAt(traverseResult.index)){
-                    traverseResult.node = nodeEdge.getNode();
-                    hasEdge = true;
-                    break;
-                }
-            }
-            if(!hasEdge){
+
+            nodeEdges.forEach(
+                    edge -> {
+                        if (edge.getNode().getValue() == word.charAt(traverseResult.index)) {
+                            traverseResult.node = edge.getNode();
+                            hasEdge.set(true);
+                        }
+                    }
+            );
+
+            if(!hasEdge.get()){
                 return traverseResult;
             }
         }
