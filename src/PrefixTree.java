@@ -4,8 +4,8 @@ public class PrefixTree {
 
     private final Node root;
 
-    PrefixTree(Node root) {
-        this.root = root;
+    PrefixTree() {
+        this.root = new Node('\u0000');
     }
 
     private static class TraverseResult {
@@ -15,20 +15,19 @@ public class PrefixTree {
     }
 
     public boolean contains(CharSequence word) {
-        TraverseResult helper = traverse(word);
-        if (helper.index == -1) {
+        TraverseResult traverseResult = traverse(word);
+        if (traverseResult.index == word.length() && traverseResult.node.isFinal()) {
             System.out.println("Tree contains this word - " + word);
             return true;
-        } else {
-            System.out.println("Tree doesn't contain this word - " + word);
-            return false;
         }
+        System.out.println("Tree doesn't contain this word - " + word);
+        return false;
     }
 
     public boolean add(CharSequence word) {
-        TraverseResult helper = traverse(word);
-        Node currentNode = helper.node;
-        if (helper.index == -1) {
+        TraverseResult traverseResult = traverse(word);
+        Node currentNode = traverseResult.node;
+        if (traverseResult.index == word.length() && traverseResult.node.isFinal()) {
             System.out.println("Word has been added already. " + word);
             return false;
         }
@@ -36,7 +35,7 @@ public class PrefixTree {
             currentNode.setFinal(true);
             return true;
         }
-        for (int i = helper.index; i < word.length(); i++) {
+        for (int i = traverseResult.index; i < word.length(); i++) {
             Node nextNode = new Node(word.charAt(i));
             Edge edge = new Edge(nextNode);
             currentNode.addEdge(edge);
@@ -62,13 +61,6 @@ public class PrefixTree {
             }
             traverseResult.node = edgeFound.getNode();
         }
-
-        if (!traverseResult.node.isFinal()) {
-            traverseResult.index = word.length() - 1;
-            return traverseResult;
-        }
-        
-        traverseResult.index = -1;
         return traverseResult;
     }
 }
