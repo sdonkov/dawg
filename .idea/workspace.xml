@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d27b57ec-d7d9-401b-a677-f0020eda4746" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dawg.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Dawg.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PrefixTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PrefixTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +78,7 @@
       <workItem from="1670944457892" duration="2926000" />
       <workItem from="1671007043627" duration="15475000" />
       <workItem from="1671089766666" duration="18617000" />
-      <workItem from="1671121421665" duration="13062000" />
+      <workItem from="1671121421665" duration="13533000" />
     </task>
     <servers />
   </component>
