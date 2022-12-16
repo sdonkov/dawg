@@ -3,12 +3,13 @@ import java.util.ArrayList;
 public class Node {
 
     private boolean isFinal;
-    private char value;
+    private final char value;
     private ArrayList<Edge> edges = new ArrayList<>();
 
-    Node(char value){
+    Node(char value) {
         this.value = value;
     }
+
     public boolean isFinal() {
         return isFinal;
     }
@@ -25,7 +26,7 @@ public class Node {
         return edges;
     }
 
-    public void addEdge(Edge edge){
+    public void addEdge(Edge edge) {
         edges.add(edge);
     }
 
@@ -33,7 +34,7 @@ public class Node {
     public String toString() {
         return "Node - " +
                 "(" +
-                edges.size() + value + (isFinal ? "." : "")+
+                edges.size() + value + (isFinal ? "." : "") +
                 ')';
     }
 }

@@ -2,7 +2,7 @@ public class Edge {
 
     private Node reference;
 
-    Edge(Node reference){
+    Edge(Node reference) {
         this.reference = reference;
     }
 
