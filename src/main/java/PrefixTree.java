@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class PrefixTree {
 
@@ -31,10 +32,6 @@ public class PrefixTree {
             System.out.println("Word has been added already. " + word);
             return false;
         }
-        if (word.length() == 1) {
-            currentNode.setFinal(true);
-            return true;
-        }
         for (int i = traverseResult.index; i < word.length(); i++) {
             Node nextNode = new Node(word.charAt(i));
             Edge edge = new Edge(nextNode);
@@ -51,15 +48,14 @@ public class PrefixTree {
         for (; traverseResult.index < word.length(); traverseResult.index++) {
             ArrayList<Edge> nodeEdges = traverseResult.node.getEdges();
 
-            Edge edgeFound = nodeEdges.stream()
+            Optional<Edge> edgeFound = nodeEdges.stream()
                     .filter(edge -> edge.getNode().getValue() == word.charAt(traverseResult.index))
-                    .findFirst()
-                    .orElse(null);
+                    .findFirst();
 
-            if (edgeFound == null) {
+            if (edgeFound.isEmpty()) {
                 return traverseResult;
             }
-            traverseResult.node = edgeFound.getNode();
+            traverseResult.node = edgeFound.get().getNode();
         }
         return traverseResult;
     }
