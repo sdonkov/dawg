@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 public class PrefixTree {
@@ -20,7 +18,7 @@ public class PrefixTree {
 
         private boolean endOfWord;
         private final char value;
-        private ArrayList<Node> edges = new ArrayList<>();
+        private final ArrayList<Node> edges = new ArrayList<>();
 
         Node(char value) {
             this.value = value;
@@ -30,20 +28,21 @@ public class PrefixTree {
             return endOfWord;
         }
 
-        public void setEndOfWord(boolean endOfWord) {
-            this.endOfWord = endOfWord;
+        public void setEndOfWord() {
+            this.endOfWord = true;
         }
 
         public char getValue() {
             return value;
         }
 
-        public Optional<Node> findChild(char searchedChar) {
+        public Optional<Node> findChild(char value) {
             return this.edges.stream()
-                    .filter(edge -> edge.getValue() == searchedChar)
+                    .filter(edge -> edge.getValue() == value)
                     .findFirst();
         }
 
+        //TODO future improvement
         public void addEdge(Node node) {
             edges.add(node);
         }
@@ -82,7 +81,7 @@ public class PrefixTree {
             currentNode.addEdge(nextNode);
             currentNode = nextNode;
         }
-        currentNode.setEndOfWord(true);
+        currentNode.setEndOfWord();
         return true;
     }
 
