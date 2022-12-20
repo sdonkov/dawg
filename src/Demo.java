@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Demo {
 
     public static void main(String[] args) {
-
+    //TODO replace with a proper test
         PrefixTree prefixTree = new PrefixTree();
         prefixTree.add("axa");
         prefixTree.add("abe");

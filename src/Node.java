@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Node {
 
-    private boolean isFinal;
+    private boolean endOfWord;
     private final char value;
     private ArrayList<Edge> edges = new ArrayList<>();
 
@@ -10,20 +12,20 @@ public class Node {
         this.value = value;
     }
 
-    public boolean isFinal() {
-        return isFinal;
+    public boolean isEndOfWord() {
+        return endOfWord;
     }
 
-    public void setFinal(boolean aFinal) {
-        isFinal = aFinal;
+    public void setEndOfWord(boolean endOfWord) {
+        this.endOfWord = endOfWord;
     }
 
     public char getValue() {
         return value;
     }
 
-    public ArrayList<Edge> getEdges() {
-        return edges;
+    public Collection<Edge> getEdges() {
+        return Collections.unmodifiableCollection(edges);
     }
 
     public void addEdge(Edge edge) {
@@ -34,7 +36,7 @@ public class Node {
     public String toString() {
         return "Node - " +
                 "(" +
-                edges.size() + value + (isFinal ? "." : "") +
+                edges.size() + value + (endOfWord ? "." : "") +
                 ')';
     }
 }
