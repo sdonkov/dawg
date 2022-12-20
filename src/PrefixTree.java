@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 public class PrefixTree {
@@ -13,7 +14,47 @@ public class PrefixTree {
     private static class TraverseResult {
         private Node node;
         private int index;
+    }
 
+    private static class Node {
+
+        private boolean endOfWord;
+        private final char value;
+        private ArrayList<Node> edges = new ArrayList<>();
+
+        Node(char value) {
+            this.value = value;
+        }
+
+        public boolean isEndOfWord() {
+            return endOfWord;
+        }
+
+        public void setEndOfWord(boolean endOfWord) {
+            this.endOfWord = endOfWord;
+        }
+
+        public char getValue() {
+            return value;
+        }
+
+        public Optional<Node> findChild(char searchedChar) {
+            return this.edges.stream()
+                    .filter(edge -> edge.getValue() == searchedChar)
+                    .findFirst();
+        }
+
+        public void addEdge(Node node) {
+            edges.add(node);
+        }
+
+        @Override
+        public String toString() {
+            return "Node - " +
+                    "(" +
+                    edges.size() + value + (endOfWord ? "." : "") +
+                    ')';
+        }
     }
 
     public boolean contains(CharSequence word) {
@@ -49,12 +90,7 @@ public class PrefixTree {
         TraverseResult traverseResult = new TraverseResult();
         traverseResult.node = root;
         for (; traverseResult.index < word.length(); traverseResult.index++) {
-            Collection<Node> nodeEdges = traverseResult.node.getEdges();
-
-            Optional<Node> edgeFound = nodeEdges.stream()
-                    .filter(edge -> edge.getValue() == word.charAt(traverseResult.index))
-                    .findFirst();
-
+            Optional<Node> edgeFound = traverseResult.node.findChild(word.charAt(traverseResult.index));
             if (!edgeFound.isPresent()) {
                 return traverseResult;
             }
