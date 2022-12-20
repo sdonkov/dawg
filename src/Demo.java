@@ -18,7 +18,7 @@ public class Demo {
         System.out.println(prefixTree.contains("a")); // true
         System.out.println(prefixTree.contains("ab")); // false
         System.out.println(prefixTree.contains("abe")); // true
-        System.out.println(prefixTree.contains("tab")); //false
+        System.out.println(prefixTree.contains("tab")); //true
         System.out.println(prefixTree.contains("axa")); // true
         System.out.println(prefixTree.contains("ayasx"));//true
     }
