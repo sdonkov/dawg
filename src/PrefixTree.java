@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 public class PrefixTree {
@@ -17,7 +18,7 @@ public class PrefixTree {
 
     public boolean contains(CharSequence word) {
         TraverseResult traverseResult = traverse(word);
-        if (traverseResult.index == word.length() && traverseResult.node.isFinal()) {
+        if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
             System.out.println("Tree contains this word - " + word);
             return true;
         }
@@ -28,7 +29,7 @@ public class PrefixTree {
     public boolean add(CharSequence word) {
         TraverseResult traverseResult = traverse(word);
         Node currentNode = traverseResult.node;
-        if (traverseResult.index == word.length() && traverseResult.node.isFinal()) {
+        if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
             System.out.println("Word has been added already. " + word);
             return false;
         }
@@ -38,7 +39,7 @@ public class PrefixTree {
             currentNode.addEdge(edge);
             currentNode = nextNode;
         }
-        currentNode.setFinal(true);
+        currentNode.setEndOfWord(true);
         return true;
     }
 
@@ -46,13 +47,13 @@ public class PrefixTree {
         TraverseResult traverseResult = new TraverseResult();
         traverseResult.node = root;
         for (; traverseResult.index < word.length(); traverseResult.index++) {
-            ArrayList<Edge> nodeEdges = traverseResult.node.getEdges();
+            Collection<Edge> nodeEdges = traverseResult.node.getEdges();
 
             Optional<Edge> edgeFound = nodeEdges.stream()
                     .filter(edge -> edge.getNode().getValue() == word.charAt(traverseResult.index))
                     .findFirst();
 
-            if (edgeFound.isEmpty()) {
+            if (!edgeFound.isPresent()) {
                 return traverseResult;
             }
             traverseResult.node = edgeFound.get().getNode();
