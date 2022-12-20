@@ -19,9 +19,11 @@ public class PrefixTree {
     public boolean contains(CharSequence word) {
         TraverseResult traverseResult = traverse(word);
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
+            //todo
             System.out.println("Tree contains this word - " + word);
             return true;
         }
+        //todo
         System.out.println("Tree doesn't contain this word - " + word);
         return false;
     }
@@ -30,13 +32,13 @@ public class PrefixTree {
         TraverseResult traverseResult = traverse(word);
         Node currentNode = traverseResult.node;
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
+            //TODO replace all souts with a logging facade
             System.out.println("Word has been added already. " + word);
             return false;
         }
         for (int i = traverseResult.index; i < word.length(); i++) {
             Node nextNode = new Node(word.charAt(i));
-            Edge edge = new Edge(nextNode);
-            currentNode.addEdge(edge);
+            currentNode.addEdge(nextNode);
             currentNode = nextNode;
         }
         currentNode.setEndOfWord(true);
@@ -47,16 +49,16 @@ public class PrefixTree {
         TraverseResult traverseResult = new TraverseResult();
         traverseResult.node = root;
         for (; traverseResult.index < word.length(); traverseResult.index++) {
-            Collection<Edge> nodeEdges = traverseResult.node.getEdges();
+            Collection<Node> nodeEdges = traverseResult.node.getEdges();
 
-            Optional<Edge> edgeFound = nodeEdges.stream()
-                    .filter(edge -> edge.getNode().getValue() == word.charAt(traverseResult.index))
+            Optional<Node> edgeFound = nodeEdges.stream()
+                    .filter(edge -> edge.getValue() == word.charAt(traverseResult.index))
                     .findFirst();
 
             if (!edgeFound.isPresent()) {
                 return traverseResult;
             }
-            traverseResult.node = edgeFound.get().getNode();
+            traverseResult.node = edgeFound.get();
         }
         return traverseResult;
     }

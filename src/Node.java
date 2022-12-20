@@ -6,7 +6,7 @@ public class Node {
 
     private boolean endOfWord;
     private final char value;
-    private ArrayList<Edge> edges = new ArrayList<>();
+    private ArrayList<Node> edges = new ArrayList<>();
 
     Node(char value) {
         this.value = value;
@@ -24,12 +24,12 @@ public class Node {
         return value;
     }
 
-    public Collection<Edge> getEdges() {
+    public Collection<Node> getEdges() {
         return Collections.unmodifiableCollection(edges);
     }
 
-    public void addEdge(Edge edge) {
-        edges.add(edge);
+    public void addEdge(Node node) {
+        edges.add(node);
     }
 
     @Override
