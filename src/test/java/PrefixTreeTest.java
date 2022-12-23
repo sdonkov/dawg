@@ -10,44 +10,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PrefixTreeTest {
 
     @Test
-    void addingWordsToTree() {
+    void addingWordsToTree() throws FileNotFoundException {
         PrefixTree prefixTree = new PrefixTree();
-        File file = new File("tests.txt");
+        File file = new File("src/test/resources/tests.txt");
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 String currentWord = sc.nextLine();
                 prefixTree.add(currentWord);
             }
-            while (sc.hasNextLine()) {
+        }
+        try(Scanner sc = new Scanner(file)) {
+            while(sc.hasNextLine()){
                 String currentWord = sc.nextLine();
                 assertTrue(prefixTree.contains(currentWord));
             }
-        }
-        catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Test
-    void negativeTestPrefixTree() {
+    void negativeTestPrefixTree() throws FileNotFoundException{
         PrefixTree prefixTree = new PrefixTree();
-        File file = new File("tests.txt");
-        File fileNegative = new File("negative_test.txt");
+        File file = new File("src/test/resources/tests.txt");
+        File fileNegative = new File("src/test/resources/negative_test.txt");
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 String currentWord = sc.nextLine();
                 prefixTree.add(currentWord);
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
         try (Scanner sc = new Scanner(fileNegative)) {
             while (sc.hasNextLine()) {
                 String currentWord = sc.nextLine();
-                assertTrue(prefixTree.contains(currentWord));
+                assertFalse(prefixTree.contains(currentWord));
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 }
