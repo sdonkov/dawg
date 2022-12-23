@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package com.github.sdonkov;
 
 public class Demo {
 

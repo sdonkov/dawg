@@ -1,3 +1,5 @@
+package com.github.sdonkov;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
