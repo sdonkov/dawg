@@ -1,7 +1,10 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,35 +12,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PrefixTreeTest {
 
-    @Test
-    void addingWordsToTree() throws FileNotFoundException {
-        PrefixTree prefixTree = new PrefixTree();
+    private static List<CharSequence> words;
+    private static PrefixTree prefixTree;
+
+    @BeforeAll
+    static void setup() throws FileNotFoundException {
         File file = new File("src/test/resources/tests.txt");
+        words = new ArrayList<>();
+        prefixTree = new PrefixTree();
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                String currentWord = sc.nextLine();
+                CharSequence currentWord = sc.nextLine();
+                words.add(currentWord);
                 prefixTree.add(currentWord);
-            }
-        }
-        try(Scanner sc = new Scanner(file)) {
-            while(sc.hasNextLine()){
-                String currentWord = sc.nextLine();
-                assertTrue(prefixTree.contains(currentWord));
             }
         }
     }
 
     @Test
-    void negativeTestPrefixTree() throws FileNotFoundException{
-        PrefixTree prefixTree = new PrefixTree();
-        File file = new File("src/test/resources/tests.txt");
+    void addingWordsToTree() {
+        words.forEach(s -> assertTrue(prefixTree.contains(s)));
+    }
+
+    @Test
+    void negativeTestPrefixTree() throws FileNotFoundException {
         File fileNegative = new File("src/test/resources/negative_test.txt");
-        try (Scanner sc = new Scanner(file)) {
-            while (sc.hasNextLine()) {
-                String currentWord = sc.nextLine();
-                prefixTree.add(currentWord);
-            }
-        }
         try (Scanner sc = new Scanner(fileNegative)) {
             while (sc.hasNextLine()) {
                 String currentWord = sc.nextLine();
