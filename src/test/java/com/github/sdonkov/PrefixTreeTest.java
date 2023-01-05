@@ -48,22 +48,33 @@ public class PrefixTreeTest {
     }
 
     @Test
-    void testContainsThrowsAppropriateException() {
-        assertThrows(NullPointerException.class, () -> prefixTree.contains(null));
+    void testContainsNull() {
+        PrefixTree underTest = new PrefixTree();
+        assertThrows(NullPointerException.class, () -> underTest.contains(null));
     }
 
     @Test
-    void testAddThrowsAppropriateException() {
-        assertThrows(NullPointerException.class, () -> prefixTree.add(null));
+    void testAddNull() {
+        PrefixTree underTest = new PrefixTree();
+        assertThrows(NullPointerException.class, () -> underTest.add(null));
     }
 
     @Test
     void testAddEmptyString() {
-        assertTrue(prefixTree.add(""));
+        PrefixTree underTest = new PrefixTree();
+        assertTrue(underTest.add(""));
     }
 
     @Test
     void testAddAlreadyAddedWord() {
-        assertFalse(prefixTree.add("table"));
+        PrefixTree underTest = new PrefixTree();
+        underTest.add("table");
+        assertFalse(underTest.add("table"));
+    }
+
+    @Test
+    void testContainsEmptyString() {
+        PrefixTree underTest = new PrefixTree();
+        assertFalse(underTest.contains(""));
     }
 }
