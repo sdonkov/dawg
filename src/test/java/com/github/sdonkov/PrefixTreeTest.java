@@ -1,3 +1,4 @@
+package com.github.sdonkov;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class PrefixTreeTest {
     private static PrefixTree prefixTree;
 
     @BeforeAll
-    static void setup() throws FileNotFoundException {
+    static void setUp() throws FileNotFoundException {
         File file = new File("src/test/resources/tests.txt");
         words = new ArrayList<>();
         prefixTree = new PrefixTree();
@@ -31,7 +32,8 @@ public class PrefixTreeTest {
 
     @Test
     void addingWordsToTree() {
-        words.forEach(s -> assertTrue(prefixTree.contains(s)));
+        words.forEach(s -> assertTrue(prefixTree.contains(s),
+                "Tree doesn't contain this word - " + s));
     }
 
     @Test
@@ -40,7 +42,7 @@ public class PrefixTreeTest {
         try (Scanner sc = new Scanner(fileNegative)) {
             while (sc.hasNextLine()) {
                 String currentWord = sc.nextLine();
-                assertFalse(prefixTree.contains(currentWord));
+                assertFalse(prefixTree.contains(currentWord), "Tree contains this word " + currentWord);
             }
         }
     }
