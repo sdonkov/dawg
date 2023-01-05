@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,15 +20,17 @@ public class PrefixTreeTest {
     private static PrefixTree prefixTree;
 
     @BeforeAll
-    static void setUp() throws FileNotFoundException {
-        File file = new File("src/test/resources/tests.txt");
+    static void setUp() throws IOException {
         words = new ArrayList<>();
         prefixTree = new PrefixTree();
-        try (Scanner sc = new Scanner(file)) {
-            while (sc.hasNextLine()) {
-                CharSequence currentWord = sc.nextLine();
-                words.add(currentWord);
-                prefixTree.add(currentWord);
+        try (InputStream is = PrefixTreeTest.class.getResourceAsStream("/tests.txt")) {
+            if (is != null) {
+                Scanner sc = new Scanner(is);
+                while (sc.hasNextLine()) {
+                    CharSequence currentWord = sc.nextLine();
+                    words.add(currentWord);
+                    prefixTree.add(currentWord);
+                }
             }
         }
     }
@@ -37,12 +41,14 @@ public class PrefixTreeTest {
     }
 
     @Test
-    void testContainsNotAddedWords() throws FileNotFoundException {
-        File fileNegative = new File("src/test/resources/negative_test.txt");
-        try (Scanner sc = new Scanner(fileNegative)) {
-            while (sc.hasNextLine()) {
-                String currentWord = sc.nextLine();
-                assertFalse(prefixTree.contains(currentWord), currentWord);
+    void testContainsNotAddedWords() throws IOException {
+        try (InputStream is = PrefixTreeTest.class.getResourceAsStream("/negative_test.txt")) {
+            if (is != null) {
+                Scanner sc = new Scanner(is);
+                while (sc.hasNextLine()) {
+                    String currentWord = sc.nextLine();
+                    assertFalse(prefixTree.contains(currentWord), currentWord);
+                }
             }
         }
     }
