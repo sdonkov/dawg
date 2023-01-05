@@ -1,4 +1,5 @@
 package com.github.sdonkov;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -31,19 +32,38 @@ public class PrefixTreeTest {
     }
 
     @Test
-    void addingWordsToTree() {
-        words.forEach(s -> assertTrue(prefixTree.contains(s),
-                "Tree doesn't contain this word - " + s));
+    void testAddingWords() {
+        words.forEach(s -> assertTrue(prefixTree.contains(s), (String) s));
     }
 
     @Test
-    void negativeTestPrefixTree() throws FileNotFoundException {
+    void testContainsNotAddedWords() throws FileNotFoundException {
         File fileNegative = new File("src/test/resources/negative_test.txt");
         try (Scanner sc = new Scanner(fileNegative)) {
             while (sc.hasNextLine()) {
                 String currentWord = sc.nextLine();
-                assertFalse(prefixTree.contains(currentWord), "Tree contains this word " + currentWord);
+                assertFalse(prefixTree.contains(currentWord), currentWord);
             }
         }
+    }
+
+    @Test
+    void testContainsThrowsAppropriateException() {
+        assertThrows(NullPointerException.class, () -> prefixTree.contains(null));
+    }
+
+    @Test
+    void testAddThrowsAppropriateException() {
+        assertThrows(NullPointerException.class, () -> prefixTree.add(null));
+    }
+
+    @Test
+    void testAddEmptyString() {
+        assertTrue(prefixTree.add(""));
+    }
+
+    @Test
+    void testAddAlreadyAddedWord() {
+        assertFalse(prefixTree.add("table"));
     }
 }
