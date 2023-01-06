@@ -3,13 +3,13 @@ package com.github.sdonkov;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,19 +20,12 @@ public class PrefixTreeTest {
     private static PrefixTree prefixTree;
 
     @BeforeAll
-    static void setUp() throws IOException {
+    static void setUp() throws IOException, URISyntaxException {
         words = new ArrayList<>();
         prefixTree = new PrefixTree();
-        try (InputStream is = PrefixTreeTest.class.getResourceAsStream("/tests.txt")) {
-            if (is != null) {
-                Scanner sc = new Scanner(is);
-                while (sc.hasNextLine()) {
-                    CharSequence currentWord = sc.nextLine();
-                    words.add(currentWord);
-                    prefixTree.add(currentWord);
-                }
-            }
-        }
+        List<String> lines = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/tests.txt").toURI()));
+        words.addAll(lines);
+        lines.forEach(s -> prefixTree.add(s));
     }
 
     @Test
@@ -41,16 +34,10 @@ public class PrefixTreeTest {
     }
 
     @Test
-    void testContainsNotAddedWords() throws IOException {
-        try (InputStream is = PrefixTreeTest.class.getResourceAsStream("/negative_test.txt")) {
-            if (is != null) {
-                Scanner sc = new Scanner(is);
-                while (sc.hasNextLine()) {
-                    String currentWord = sc.nextLine();
-                    assertFalse(prefixTree.contains(currentWord), currentWord);
-                }
-            }
-        }
+    void testContainsNotAddedWords() throws IOException, URISyntaxException {
+        List<String> lines = Files.readAllLines
+                (Paths.get(PrefixTreeTest.class.getResource("/negative_test.txt").toURI()));
+        lines.forEach(word -> assertFalse(prefixTree.contains(word)));
     }
 
     @Test
