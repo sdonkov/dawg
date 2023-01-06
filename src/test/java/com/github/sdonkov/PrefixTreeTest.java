@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,28 +15,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PrefixTreeTest {
 
-    private static List<CharSequence> words;
+    private static List<String> words;
     private static PrefixTree prefixTree;
 
     @BeforeAll
     static void setUp() throws IOException, URISyntaxException {
-        words = new ArrayList<>();
         prefixTree = new PrefixTree();
-        List<String> lines = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/tests.txt").toURI()));
-        words.addAll(lines);
-        lines.forEach(s -> prefixTree.add(s));
+        words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/tests.txt").toURI()));
+        words.forEach(word -> prefixTree.add(word));
     }
 
     @Test
     void testAddingWords() {
-        words.forEach(s -> assertTrue(prefixTree.contains(s), (String) s));
+        words.forEach(s -> assertTrue(prefixTree.contains(s), s));
     }
 
     @Test
     void testContainsNotAddedWords() throws IOException, URISyntaxException {
         List<String> lines = Files.readAllLines
                 (Paths.get(PrefixTreeTest.class.getResource("/negative_test.txt").toURI()));
-        lines.forEach(word -> assertFalse(prefixTree.contains(word)));
+        lines.forEach(word -> assertFalse(prefixTree.contains(word), word));
     }
 
     @Test
