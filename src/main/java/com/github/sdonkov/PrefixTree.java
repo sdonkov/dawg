@@ -3,8 +3,12 @@ package com.github.sdonkov;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class PrefixTree {
 
+    private final static Logger logger = LogManager.getLogger(PrefixTree.class);
     private final Node root;
 
     PrefixTree() {
@@ -61,12 +65,10 @@ public class PrefixTree {
     public boolean contains(CharSequence word) {
         TraverseResult traverseResult = traverse(word);
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
-            //todo
-            System.out.println("Tree contains this word - " + word);
+            logger.debug("Tree contains this word - " + word);
             return true;
         }
-        //todo
-        System.out.println("Tree doesn't contain this word - " + word);
+        logger.debug("Tree doesn't contain this word - " + word);
         return false;
     }
 
@@ -74,8 +76,7 @@ public class PrefixTree {
         TraverseResult traverseResult = traverse(word);
         Node currentNode = traverseResult.node;
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
-            //TODO replace all souts with a logging facade
-            System.out.println("Word has been added already. " + word);
+            logger.debug("Word has been added already." + word);
             return false;
         }
         for (int i = traverseResult.index; i < word.length(); i++) {
