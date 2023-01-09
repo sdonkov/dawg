@@ -52,6 +52,7 @@ public class PrefixTreeTest {
     @Test
     void testAddEmptyString() {
         PrefixTree underTest = new PrefixTree();
+        //todo assert false
         assertTrue(underTest.add(""));
     }
 
