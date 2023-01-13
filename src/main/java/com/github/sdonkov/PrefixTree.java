@@ -65,14 +65,10 @@ public class PrefixTree {
     public boolean contains(CharSequence word) {
         TraverseResult traverseResult = traverse(word);
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
-            if (LOGGER.isTraceEnabled()) {
-                LOGGER.trace("Tree contains this word - {}", word);
-            }
+            LOGGER.trace("Tree contains this word - {}", word);
             return true;
         }
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("Tree doesn't contain this word - {}", word);
-        }
+        LOGGER.trace("Tree doesn't contain this word - {}", word);
         return false;
     }
 
@@ -80,9 +76,7 @@ public class PrefixTree {
         TraverseResult traverseResult = traverse(word);
         Node currentNode = traverseResult.node;
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
-            if (LOGGER.isTraceEnabled()) {
-                LOGGER.trace("Word has been added already. {}", word);
-            }
+            LOGGER.trace("Word has been added already. {}", word);
             return false;
         }
         for (int i = traverseResult.index; i < word.length(); i++) {
