@@ -1,14 +1,21 @@
 package com.github.sdonkov;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openjdk.jol.info.GraphLayout;
 
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,11 +25,24 @@ public class PrefixTreeTest {
     private static List<String> words;
     private static PrefixTree prefixTree;
 
+    private static Set hashSet;
+    private static Set treeSet;
+
+    private final static Logger LOGGER = LogManager.getLogger(PrefixTree.class);
     @BeforeAll
     static void setUp() throws IOException, URISyntaxException {
         prefixTree = new PrefixTree();
-        words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/tests.txt").toURI()));
+        words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/dictionary.txt").toURI()));
         words.forEach(word -> prefixTree.add(word));
+        hashSet = new HashSet<>(words);
+        treeSet = new TreeSet<>(words);
+    }
+
+    @AfterAll
+    static void tearDown() {
+        LOGGER.trace(GraphLayout.parseInstance(prefixTree).totalSize() + " tree");
+        LOGGER.trace(GraphLayout.parseInstance(hashSet).totalSize() + " hashSet");
+        LOGGER.trace(GraphLayout.parseInstance(treeSet).totalSize() + " treeSet");
     }
 
     @Test
