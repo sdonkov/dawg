@@ -18,7 +18,6 @@ public class PrefixTreeTest {
     private static List<String> words;
     private static PrefixTree prefixTree;
 
-
     @BeforeAll
     static void setUp() throws IOException, URISyntaxException {
         prefixTree = new PrefixTree();
