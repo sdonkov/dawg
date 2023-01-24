@@ -4,10 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jol.info.GraphLayout;
 
 import java.io.IOException;
@@ -25,15 +21,9 @@ import java.util.concurrent.TimeUnit;
 public class PrefixTreeBenchmark {
     private static List<String> words;
     private static PrefixTree prefixTree;
-    private static List<String> randomWords;
-
-
-    public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder()
-                .include(PrefixTreeBenchmark.class.getSimpleName())
-                .build();
-        new Runner(opt).run();
-    }
+    private static Set<String> treeSet;
+    private static Set<String> hashSet;
+    private final static Logger LOGGER = LogManager.getLogger(PrefixTree.class);
 
     @Setup
     public void setUp() throws URISyntaxException, IOException {
@@ -41,23 +31,27 @@ public class PrefixTreeBenchmark {
         words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/dictionary.txt").toURI()));
         words.forEach(word -> prefixTree.add(word));
         Collections.shuffle(words);
-        randomWords = words.subList(0, 11);
+        treeSet = new TreeSet<>(words);
+        hashSet = new HashSet<>(words);
+        LOGGER.debug(GraphLayout.parseInstance(prefixTree).totalSize() + " tree");
+//        LOGGER.debug(GraphLayout.parseInstance(hashSet).totalSize() + " hashSet");
+//        5377400 hashSet
+//        LOGGER.debug(GraphLayout.parseInstance(treeSet).totalSize() + " treeSet");
+//        5317968 treeSet
     }
 
     @Benchmark
-    public void benchmarkPrefixTree() {
-        randomWords.forEach(word -> prefixTree.contains(word));
+    public void benchmarkPrefixTree(Blackhole bh) {
+        words.forEach(word -> bh.consume(prefixTree.contains(word)));
     }
 
-    @Benchmark
-    public void benchmarkHashSet() {
-        Set<String> hashSet = new HashSet<>(words);
-        randomWords.forEach(word -> hashSet.contains(word));
+    //    @Benchmark
+    public void benchmarkHashSet(Blackhole bh) {
+        words.forEach(word -> bh.consume(hashSet.contains(word)));
     }
 
-    @Benchmark
-    public void benchmarkTreeSet() {
-        Set<String> treeSet = new TreeSet<>(words);
-        randomWords.forEach(word -> treeSet.contains(word));
+    //    @Benchmark
+    public void benchmarkTreeSet(Blackhole bh) {
+        words.forEach(word -> bh.consume(treeSet.contains(word)));
     }
 }
