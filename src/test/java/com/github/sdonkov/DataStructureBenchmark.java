@@ -29,12 +29,12 @@ import java.util.concurrent.TimeUnit;
 @Fork(value = 1)
 @Warmup(iterations = 3)
 @State(Scope.Benchmark)
-public class Benchmark {
+public class DataStructureBenchmark {
     private static List<String> words;
     private static PrefixTree prefixTree;
     private static Set<String> treeSet;
     private static Set<String> hashSet;
-    private final static Logger LOGGER = LogManager.getLogger(Benchmark.class);
+    private final static Logger LOGGER = LogManager.getLogger(DataStructureBenchmark.class);
 
     @Setup
     public void setUp() throws URISyntaxException, IOException {
@@ -44,6 +44,8 @@ public class Benchmark {
         treeSet = new TreeSet<>(words);
         hashSet = new HashSet<>(words);
         sizeInfo(prefixTree);
+        sizeInfo(treeSet);
+        sizeInfo(hashSet);
         Collections.shuffle(words);
     }
 
