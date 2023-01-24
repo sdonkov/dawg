@@ -21,7 +21,7 @@ public class PrefixTreeTest {
     @BeforeAll
     static void setUp() throws IOException, URISyntaxException {
         prefixTree = new PrefixTree();
-        words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/tests.txt").toURI()));
+        words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/dictionary.txt").toURI()));
         words.forEach(word -> prefixTree.add(word));
     }
 
