@@ -2,6 +2,7 @@ package com.github.sdonkov;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Mode;
@@ -53,7 +54,7 @@ public class DataStructureBenchmark {
         LOGGER.debug(GraphLayout.parseInstance(object).totalSize() + " " + object.getClass().getSimpleName());
     }
 
-    @org.openjdk.jmh.annotations.Benchmark
+    @Benchmark
     public void benchmarkPrefixTree(Blackhole bh) {
         words.forEach(word -> bh.consume(prefixTree.contains(word)));
     }
