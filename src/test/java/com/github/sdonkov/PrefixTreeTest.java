@@ -52,9 +52,9 @@ public class PrefixTreeTest {
     @Test
     void testAddEmptyString() {
         PrefixTree underTest = new PrefixTree();
-        assertAll(  () -> assertFalse(underTest.contains("")),
-                    () -> assertTrue(underTest.add("")),
-                    () -> assertTrue(underTest.contains("")));
+        assertFalse(underTest.contains(""));
+        assertTrue(underTest.add(""));
+        assertTrue(underTest.contains(""));
     }
 
     @Test

@@ -63,7 +63,7 @@ public class PrefixTree {
     }
 
     public boolean contains(CharSequence word) {
-        if (checkIfNull(word)) {
+        if (word == null) {
             return false;
         }
         TraverseResult traverseResult = traverse(word);
@@ -76,7 +76,7 @@ public class PrefixTree {
     }
 
     public boolean add(CharSequence word) {
-        if (checkIfNull(word)) {
+        if (word == null) {
             return false;
         }
         TraverseResult traverseResult = traverse(word);
@@ -105,9 +105,5 @@ public class PrefixTree {
             traverseResult.node = edgeFound.get();
         }
         return traverseResult;
-    }
-
-    private boolean checkIfNull(CharSequence word) {
-        return word == null;
     }
 }
