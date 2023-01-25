@@ -1,10 +1,10 @@
 package com.github.sdonkov;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class PrefixTree {
 
@@ -63,6 +63,9 @@ public class PrefixTree {
     }
 
     public boolean contains(CharSequence word) {
+        if (checkIfNull(word)) {
+            return false;
+        }
         TraverseResult traverseResult = traverse(word);
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
             LOGGER.trace("Tree contains this word - {}", word);
@@ -73,6 +76,9 @@ public class PrefixTree {
     }
 
     public boolean add(CharSequence word) {
+        if (checkIfNull(word)) {
+            return false;
+        }
         TraverseResult traverseResult = traverse(word);
         Node currentNode = traverseResult.node;
         if (traverseResult.index == word.length() && traverseResult.node.isEndOfWord()) {
@@ -99,5 +105,9 @@ public class PrefixTree {
             traverseResult.node = edgeFound.get();
         }
         return traverseResult;
+    }
+
+    private boolean checkIfNull(CharSequence word) {
+        return word == null;
     }
 }
