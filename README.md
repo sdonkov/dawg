@@ -1,6 +1,6 @@
 ![💻DAWG](https://user-images.githubusercontent.com/102171106/214369779-21e03682-825a-441a-96ea-a7a4af98b61b.png)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/sdonkov/dawg) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sdonkov/dawg/test.yaml) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/sdonkov/dawg) ![GitHub closed issues](https://img.shields.io/github/issues-closed/sdonkov/dawg)
+[![GitHub last commit](https://img.shields.io/github/last-commit/sdonkov/dawg)](https://github.com/sdonkov/dawg/commits/master) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/sdonkov/dawg/test.yaml)](https://github.com/sdonkov/dawg/actions) [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/sdonkov/dawg)](https://github.com/sdonkov/dawg/pulls?q=is%3Apr+is%3Aclosed) [![GitHub closed issues](https://img.shields.io/github/issues-closed/sdonkov/dawg)](https://github.com/sdonkov/dawg/issues?q=is%3Aissue+is%3Aclosed)
 
 # DAWG
 
@@ -21,7 +21,7 @@ I'm researching data structures to improve my programming skills
 
 - Install Maven
 
-- Run unit tests 
+- Run unit tests
 ```
 mvn test
 ```
