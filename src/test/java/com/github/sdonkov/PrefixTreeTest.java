@@ -40,20 +40,21 @@ public class PrefixTreeTest {
     @Test
     void testContainsNull() {
         PrefixTree underTest = new PrefixTree();
-        assertThrows(NullPointerException.class, () -> underTest.contains(null));
+        assertFalse(underTest.contains(null));
     }
 
     @Test
     void testAddNull() {
         PrefixTree underTest = new PrefixTree();
-        assertThrows(NullPointerException.class, () -> underTest.add(null));
+        assertFalse(underTest.add(null));
     }
 
     @Test
     void testAddEmptyString() {
         PrefixTree underTest = new PrefixTree();
-        //todo assert false
+        assertFalse(underTest.contains(""));
         assertTrue(underTest.add(""));
+        assertTrue(underTest.contains(""));
     }
 
     @Test
