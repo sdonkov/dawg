@@ -3,16 +3,50 @@ package com.github.sdonkov;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.AbstractCollection;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class PrefixTree {
+public class PrefixTree extends AbstractCollection<String> {
 
     private final static Logger LOGGER = LogManager.getLogger(PrefixTree.class);
     private final Node root;
+    private int size;
+    private final ArrayList<String> data;
 
     PrefixTree() {
         this.root = new Node('\u0000');
+        data = new ArrayList<>();
+    }
+
+    private class CustomIterator implements Iterator<String> {
+
+        private int currentIndex;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public String next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return data.get(currentIndex++);
+        }
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return new CustomIterator();
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     private static class TraverseResult {
@@ -62,7 +96,7 @@ public class PrefixTree {
         }
     }
 
-    public boolean contains(CharSequence word) {
+    public boolean contains(String word) {
         if (word == null) {
             return false;
         }
@@ -75,7 +109,7 @@ public class PrefixTree {
         return false;
     }
 
-    public boolean add(CharSequence word) {
+    public boolean add(String word) {
         if (word == null) {
             return false;
         }
@@ -91,10 +125,12 @@ public class PrefixTree {
             currentNode = nextNode;
         }
         currentNode.setEndOfWord();
+        size++;
+        data.add(word);
         return true;
     }
 
-    private TraverseResult traverse(CharSequence word) {
+    private TraverseResult traverse(String word) {
         TraverseResult traverseResult = new TraverseResult();
         traverseResult.node = root;
         for (; traverseResult.index < word.length(); traverseResult.index++) {

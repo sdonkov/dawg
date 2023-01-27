@@ -3,14 +3,16 @@ package com.github.sdonkov;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class PrefixTreeTest {
@@ -25,6 +27,18 @@ public class PrefixTreeTest {
         words.forEach(word -> prefixTree.add(word));
     }
 
+    @Test
+    void testCompatibility() {
+        PrefixTree pt = new PrefixTree();
+        pt.add("table");
+        pt.add("tab");
+        pt.add("word");
+
+        HashSet<String> hs = new HashSet<>(pt);
+        assertEquals(hs.size(), pt.size());
+        HashSet<String> hs2 = new HashSet<>(prefixTree);
+        assertEquals(hs2.size(), prefixTree.size());
+    }
     @Test
     void testAddingWords() {
         words.forEach(s -> assertTrue(prefixTree.contains(s), s));
