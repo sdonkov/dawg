@@ -3,26 +3,40 @@ package com.github.sdonkov;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class PrefixTreeTest {
 
     private static List<String> words;
-    private static PrefixTree prefixTree;
+    private static PrefixTree<String> prefixTree;
 
     @BeforeAll
     static void setUp() throws IOException, URISyntaxException {
-        prefixTree = new PrefixTree();
+        prefixTree = new PrefixTree<>();
         words = Files.readAllLines(Paths.get(PrefixTreeTest.class.getResource("/dictionary.txt").toURI()));
         words.forEach(word -> prefixTree.add(word));
+    }
+
+    @Test
+    void testCompatibility() {
+        PrefixTree<String> pt = new PrefixTree<>();
+        // populate data into the thing
+        pt.add("Word");
+        pt.add("Second");
+        pt.add("tab");
+
+        HashSet<String> hs = new HashSet<>(pt);
+        assertEquals(hs.size(), pt.size());
     }
 
     @Test
@@ -39,19 +53,19 @@ public class PrefixTreeTest {
 
     @Test
     void testContainsNull() {
-        PrefixTree underTest = new PrefixTree();
+        PrefixTree<CharSequence> underTest = new PrefixTree<>();
         assertFalse(underTest.contains(null));
     }
 
     @Test
     void testAddNull() {
-        PrefixTree underTest = new PrefixTree();
+        PrefixTree<CharSequence> underTest = new PrefixTree<>();
         assertFalse(underTest.add(null));
     }
 
     @Test
     void testAddEmptyString() {
-        PrefixTree underTest = new PrefixTree();
+        PrefixTree<CharSequence> underTest = new PrefixTree<>();
         assertFalse(underTest.contains(""));
         assertTrue(underTest.add(""));
         assertTrue(underTest.contains(""));
@@ -59,14 +73,14 @@ public class PrefixTreeTest {
 
     @Test
     void testAddAlreadyAddedWord() {
-        PrefixTree underTest = new PrefixTree();
+        PrefixTree<CharSequence> underTest = new PrefixTree<>();
         underTest.add("table");
         assertFalse(underTest.add("table"));
     }
 
     @Test
     void testContainsEmptyString() {
-        PrefixTree underTest = new PrefixTree();
+        PrefixTree<CharSequence> underTest = new PrefixTree<>();
         assertFalse(underTest.contains(""));
     }
 }
